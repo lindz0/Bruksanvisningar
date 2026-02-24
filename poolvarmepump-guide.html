@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gullberg & Jansson Poolvärmepump P-serien – Interaktiv Guide</title>
+<style>
+  :root {
+    --blue: #003d6b;
+    --blue-mid: #005a9e;
+    --blue-light: #d0e8f8;
+    --green: #1a6e2e;
+    --green-light: #d4edda;
+    --red: #b00020;
+    --red-light: #fde8e8;
+    --orange: #c06000;
+    --orange-light: #fef3e2;
+    --bg: #f2f5f8;
+    --card: #ffffff;
+    --border: #dde4ec;
+    --text: #1a2533;
+    --text-muted: #56687a;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,40,80,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: var(--blue);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 16px; }
+
+  .logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .header-title { font-size: 16px; opacity: 0.85; }
+
+  .model-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+  }
+
+  nav {
+    background: var(--blue-mid);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  nav button {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.75);
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.15s;
+  }
+  nav button:hover { color: white; background: rgba(255,255,255,0.08); }
+  nav button.active { color: white; border-bottom-color: #5bc8f5; }
+
+  main {
+    max-width: 960px;
+    margin: 32px auto;
+    padding: 0 20px;
+    width: 100%;
+    flex: 1;
+  }
+
+  .tab { display: none; }
+  .tab.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--blue-mid);
+    margin: 20px 0 10px;
+  }
+  .card h3:first-child { margin-top: 0; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 620px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* Steps */
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .step-num {
+    min-width: 30px;
+    height: 30px;
+    background: var(--blue-mid);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .step-body { flex: 1; }
+  .step-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* Alerts */
+  .alert {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    border: 1px solid;
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .alert.warning { background: var(--orange-light); border-color: #f0c070; color: #5a3000; }
+  .alert.danger  { background: var(--red-light); border-color: #f0a0a0; color: #5a0010; }
+  .alert.info    { background: var(--blue-light); border-color: #a0c8e8; color: #002855; }
+  .alert.success { background: var(--green-light); border-color: #90d0a0; color: #0a3a18; }
+
+  /* Error codes */
+  .error-grid { display: flex; flex-direction: column; gap: 8px; }
+
+  .error-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    align-items: start;
+    cursor: pointer;
+    transition: box-shadow 0.1s;
+  }
+  .error-row:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+  .error-code {
+    font-weight: 800;
+    font-size: 15px;
+    font-family: monospace;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-align: center;
+  }
+  .code-p { background: var(--orange-light); color: var(--orange); }
+  .code-e { background: var(--red-light); color: var(--red); }
+
+  .error-info { display: flex; flex-direction: column; gap: 3px; }
+  .error-name { font-weight: 700; font-size: 14px; }
+  .error-cause { font-size: 12px; color: var(--text-muted); }
+  .error-fix { font-size: 12px; color: var(--green); }
+  .error-chevron { color: var(--text-muted); font-size: 18px; align-self: center; }
+
+  /* Parameter table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: var(--blue);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  th:first-child { border-radius: 6px 0 0 0; }
+  th:last-child { border-radius: 0 6px 0 0; }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg); }
+
+  .mono { font-family: monospace; font-weight: 700; }
+
+  /* Model comparison */
+  .model-table { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tag-blue { background: var(--blue-light); color: var(--blue); }
+  .tag-green { background: var(--green-light); color: var(--green); }
+  .tag-orange { background: var(--orange-light); color: var(--orange); }
+
+  /* Display simulator */
+  .display-sim {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .display-screen {
+    background: #0f3460;
+    border: 2px solid #16213e;
+    border-radius: 8px;
+    width: 180px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 36px;
+    font-weight: 700;
+    color: #5bc8f5;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px rgba(91,200,245,0.5);
+  }
+  .display-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .btn-round {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    background: #2a2a3e;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s;
+    user-select: none;
+  }
+  .btn-round:active, .btn-round.pressed { background: #4a4a6e; transform: scale(0.95); }
+  .btn-onoff {
+    width: 52px;
+    height: 52px;
+    background: #c00030;
+    border-color: #900020;
+  }
+  .display-status {
+    color: #aaa;
+    font-size: 12px;
+    text-align: center;
+    min-height: 18px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="logo">G&amp;J</a>
+    <div>
+      <div style="font-size:15px;font-weight:700;">Poolvärmepump</div>
+      <div class="header-title">Gullberg &amp; Jansson P-serien</div>
+    </div>
+  </div>
+  <span class="model-badge">P10 / P15 / P20 / P30</span>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('start')">Uppstart</button>
+  <button onclick="showTab('drift')">Drift &amp; Display</button>
+  <button onclick="showTab('fel')">Felkoder</button>
+  <button onclick="showTab('underhall')">Underhåll</button>
+  <button onclick="showTab('teknisk')">Tekniska data</button>
+</nav>
+
+<main>
+
+  <!-- TAB: UPPSTART -->
+  <div class="tab active" id="tab-start">
+
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Viktigt:</strong> Kontrollera alltid att poolvattnet cirkulerar ordentligt innan poolvärmepumpen startas. Flödesvakten stänger av enheten (E03) om flödet är otillräckligt.</div>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Uppstart – steg för steg</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Starta cirkulationspumpen</div>
+            <div class="step-desc">Starta poolens cirkulationspump och kontrollera att det inte finns läckage och att vatten flödar till och från poolen.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Slå på matningsspänningen</div>
+            <div class="step-desc">Slå på matningsspänningen till poolvärmepumpen. Kontrollera driftsinställningarna via displayen (standardvärde 27 °C).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Tryck på Av/På-knappen</div>
+            <div class="step-desc">Håll in Av/På-knappen i ca 1 sekund. Enheten ska starta efter några sekunder. Kompressorn startar efter ca 1 minuts fördröjning.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Kontrollera utblåsluften</div>
+            <div class="step-desc">Efter några minuter – känn att utblåsluften är 5–10 °C kallare än utomhustemperaturen. Det bekräftar att värmepumpen arbetar korrekt.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Testa flödesvakten</div>
+            <div class="step-desc">Stoppa cirkulationspumpen tillfälligt och kontrollera att poolvärmepumpen automatiskt stoppar och visar <span class="mono">E03</span>. Starta sedan pumpen igen.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Kör tills önskad temperatur uppnås</div>
+            <div class="step-desc">Låt systemet gå dygnet runt. Pumpen stannar automatiskt när temperaturen överstiger börvärdet med 1 °C och startar igen när den sjunker 1 °C under börvärdet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📍 Placering</h2>
+      <div class="alert info">
+        <span class="alert-icon">ℹ️</span>
+        <div>Poolvärmepumpen ska alltid placeras <strong>utomhus</strong> med god ventilation. Undvik inbyggnad som begränsar luftflödet.</div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <h3>Krav på uppställning</h3>
+          <ul style="padding-left:18px;font-size:13px;line-height:2;">
+            <li>Fast, horisontellt och stabilt underlag</li>
+            <li>Upphöjd från marknivå (god avrinning)</li>
+            <li>Tillräckligt luftintag och utblås</li>
+            <li>Undvik rundgång av kall luft</li>
+            <li>Placera så att ljud stör omgivningen minimalt</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Avstånd &amp; vatten</h3>
+          <ul style="padding-left:18px;font-size:13px;line-height:2;">
+            <li>Installeras normalt vid poolens reningsverk</li>
+            <li>God avrinning för kondensvatten (upp till 10 l/tim)</li>
+            <li>Blanda ej ihop kondensvatten med läckage</li>
+            <li>Rörinstallation med 50 mm unionskopplingar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔌 Elektrisk installation</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">230 V ~ 50 Hz enfas. Elanslutning i poolvärmepumpens kopplingsbox bakom elluckan.</p>
+      <div class="alert danger">
+        <span class="alert-icon">⛔</span>
+        <div><strong>Ingrepp i el- och kylsystem får endast utföras av behörig person.</strong> Bryt alltid strömmen innan ingrepp i systemet. En säkerhetsbrytare ska vara synligt placerad vid enheten.</div>
+      </div>
+      <div class="grid-2" style="margin-top:8px;">
+        <div>
+          <table class="model-table">
+            <tr><th>Modell</th><th>Säkring (C)</th><th>Driftström</th></tr>
+            <tr><td>P10</td><td>10 A</td><td>3,3 A</td></tr>
+            <tr><td>P15</td><td>16 A</td><td>4,2 A</td></tr>
+            <tr><td>P20</td><td>16 A</td><td>6,4 A</td></tr>
+            <tr><td>P30</td><td>16 A</td><td>9,0 A</td></tr>
+          </table>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">
+          <p>Enheten måste anslutas till <strong>jord</strong> för fullgott kortslutningsskydd.</p>
+          <p style="margin-top:8px;">Även om värmeväxlaren är elektriskt isolerad från poolvattnet krävs jordning av kabinett.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: DRIFT & DISPLAY -->
+  <div class="tab" id="tab-drift">
+
+    <div class="card">
+      <h2>🖥️ Display &amp; knappar – simulator</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">Testa hur displayen fungerar. Tryck på knapparna nedan.</p>
+
+      <div class="display-sim">
+        <div class="display-screen" id="disp">OFF</div>
+        <div class="display-buttons">
+          <div class="btn-round" id="btn-up" onclick="displayUp()">▲</div>
+          <div class="btn-round btn-onoff" onclick="displayOnOff()">⏻</div>
+          <div class="btn-round" id="btn-dn" onclick="displayDown()">▼</div>
+        </div>
+        <div class="display-status" id="disp-status">Poolvärmepumpen är avstängd</div>
+      </div>
+
+      <div style="margin-top:20px;font-size:12px;color:var(--text-muted);text-align:center;">
+        <strong>Tips:</strong> Håll inne ▲ i 2 sek för att se utgående vattentemperatur
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🌡️ Ställa in temperatur</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Tryck på en piltangent</div>
+            <div class="step-desc">Nuvarande önskad temperatur visas <em>blinkandes</em> i displayen.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Justera med piltangenterna</div>
+            <div class="step-desc">Varje tryck ändrar värdet med 0,1 °C. Standardvärde: <strong>27 °C</strong> (intervall 15–40 °C).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Vänta 5 sekunder för att spara</div>
+            <div class="step-desc">Displayen återgår till att visa aktuell inloppstemperatur. Inställningen är sparad.</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert info" style="margin-top:16px;">
+        <span class="alert-icon">💡</span>
+        <div>Täck alltid över poolen när den inte används – framförallt nattetid. Upp till 60–70 % av värmen försvinner via vattenytan. En övertäckning minskar drifttid och energikostnad avsevärt.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>⚙️ Avancerade inställningar (kod 022)</h2>
+      <div class="alert warning" style="margin-bottom:16px;">
+        <span class="alert-icon">⚠️</span>
+        <div>Avancerade parametrar är fabriksinställda och behöver normalt inte justeras.</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Håll in ▲ och ▼ i 10 sekunder</div>
+            <div class="step-desc">Koden <span class="mono">000</span> visas i displayen.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Ändra koden till 022</div>
+            <div class="step-desc">Använd piltangenterna. Vänta ett par sekunder – kategorimenyn öppnas.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Välj kategori och parameter</div>
+            <div class="step-desc">Bläddra med piltangenterna. Håll in ▲+▼ i ett par sekunder för att gå in i vald kategori.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Ändra värdet och spara</div>
+            <div class="step-desc">Justera med piltangenterna. Väntar du några sekunder sparas värdet automatiskt. Av/På-knappen backar i menyn.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px;">Parametertabell</h3>
+      <div style="overflow-x:auto;">
+        <table class="model-table">
+          <tr><th>Param.</th><th>Beskrivning</th><th>Intervall</th><th>Standard</th></tr>
+          <tr><td class="mono">d01</td><td>Förångartemp. för start av avfrostning</td><td>-30 – 5 °C</td><td><strong>0 °C</strong></td></tr>
+          <tr><td class="mono">d02</td><td>Förångartemp. för stopp av avfrostning</td><td>0 – 30 °C</td><td><strong>13 °C</strong></td></tr>
+          <tr><td class="mono">d03</td><td>Min. tid mellan avfrostningssekvenser</td><td>30 – 90 min</td><td><strong>45 min</strong></td></tr>
+          <tr><td class="mono">d04</td><td>Max. tid för en avfrostningssekvens</td><td>1 – 20 min</td><td><strong>8 min</strong></td></tr>
+          <tr><td class="mono">r03</td><td>Börvärde – önskad pooltemperatur</td><td>15 – 40 °C</td><td><strong>27 °C</strong></td></tr>
+        </table>
+      </div>
+
+      <h3 style="margin-top:20px;">Givarvärden (läsbara, ej ändbara)</h3>
+      <div style="overflow-x:auto;">
+        <table class="model-table">
+          <tr><th>Kod</th><th>Beskrivning</th></tr>
+          <tr><td class="mono">O01</td><td>Kompressorutgång (On/Off)</td></tr>
+          <tr><td class="mono">O02</td><td>Pumputgång (On/Off)</td></tr>
+          <tr><td class="mono">O03</td><td>Fyrvägsventilutgång (On/Off)</td></tr>
+          <tr><td class="mono">t02</td><td>Inloppstemperatur</td></tr>
+          <tr><td class="mono">t04</td><td>Förångartemperatur</td></tr>
+          <tr><td class="mono">t05</td><td>Utomhustemperatur</td></tr>
+          <tr><td class="mono">t06</td><td>Hetgastemperatur</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔒 Knapplås</h2>
+      <p style="font-size:13px;color:var(--text-muted);">Håll inne <strong>Av/På-knappen i 10 sekunder</strong> för att aktivera eller inaktivera knapplåset. Förhindrar oavsiktliga inställningsändringar.</p>
+    </div>
+
+  </div>
+
+  <!-- TAB: FELKODER -->
+  <div class="tab" id="tab-fel">
+
+    <div class="alert info">
+      <span class="alert-icon">ℹ️</span>
+      <div>Vid kvarstående fel – kontakta återförsäljaren och ange produktens <strong>serienummer</strong> (se etikett på enheten). Ange alltid modell och serienummer vid service.</div>
+    </div>
+
+    <div class="card">
+      <h2>🔴 P-koder – givarlarm</h2>
+      <div class="error-grid">
+        <div class="error-row">
+          <span class="error-code code-p">P01</span>
+          <div class="error-info">
+            <span class="error-name">Givarfel – inlopp</span>
+            <span class="error-cause">Givare ej ansluten, kabelbrott eller kortslutning</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-p">P02</span>
+          <div class="error-info">
+            <span class="error-name">Givarfel – utlopp</span>
+            <span class="error-cause">Givare ej ansluten, kabelbrott eller kortslutning</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-p">P04</span>
+          <div class="error-info">
+            <span class="error-name">Givarfel – utomhus</span>
+            <span class="error-cause">Givare ej ansluten, kabelbrott eller kortslutning</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-p">P05</span>
+          <div class="error-info">
+            <span class="error-name">Givarfel – förångare</span>
+            <span class="error-cause">Givare ej ansluten, kabelbrott eller kortslutning</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-p">P07</span>
+          <div class="error-info">
+            <span class="error-name">Givarfel – suggas</span>
+            <span class="error-cause">Givare ej ansluten, kabelbrott eller kortslutning</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-p">P81</span>
+          <div class="error-info">
+            <span class="error-name">Givarfel – hetgas</span>
+            <span class="error-cause">Givare ej ansluten, kabelbrott eller kortslutning</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-p">P82</span>
+          <div class="error-info">
+            <span class="error-name">Hetgaslarm</span>
+            <span class="error-cause">Kompressor överhettad</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔴 E-koder – driftlarm</h2>
+      <div class="error-grid">
+        <div class="error-row">
+          <span class="error-code code-e">E01</span>
+          <div class="error-info">
+            <span class="error-name">Högtryckspressostat</span>
+            <span class="error-cause">Gastrycket för högt</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-e">E02</span>
+          <div class="error-info">
+            <span class="error-name">Lågtryckspressostat</span>
+            <span class="error-cause">Gastrycket för lågt</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row" style="border-color:#f0c070;background:#fef9ed;">
+          <span class="error-code code-e">E03</span>
+          <div class="error-info">
+            <span class="error-name">Flödesvakt</span>
+            <span class="error-cause">Lågt flöde eller inget vatten i systemet</span>
+            <span class="error-fix">✓ Kontrollera att cirkulationspumpen är igång. Justera bypass-ventilen vid behov.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-e">E06</span>
+          <div class="error-info">
+            <span class="error-name">För hög temperaturdiff.</span>
+            <span class="error-cause">Mer än 12 °C skillnad mellan inlopp och utlopp – otillräckligt flöde</span>
+            <span class="error-fix">✓ Kontrollera vattenflöde och justera bypass-ventilen. Rensa poolfiltret.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-e">E08</span>
+          <div class="error-info">
+            <span class="error-name">Kommunikationsfel</span>
+            <span class="error-cause">Ingen kontakt med styrenhet</span>
+            <span class="error-fix">✓ Starta om enheten. Kvarstår felet → kontakta återförsäljaren.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-e">E19</span>
+          <div class="error-info">
+            <span class="error-name">Antifrysskydd steg 1</span>
+            <span class="error-cause">Inlopp under 4 °C och uteluft 0 °C eller kallare</span>
+            <span class="error-fix">✓ Starta om enheten. Kontrollera att poolen inte riskerar att frysa.</span>
+          </div>
+        </div>
+        <div class="error-row">
+          <span class="error-code code-e">E29</span>
+          <div class="error-info">
+            <span class="error-name">Antifrysskydd steg 2</span>
+            <span class="error-cause">Inlopp under 2 °C och uteluft 0 °C eller kallare</span>
+            <span class="error-fix">✓ Starta om enheten. Vinterdränera om poolen ska stängas.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: UNDERHÅLL -->
+  <div class="tab" id="tab-underhall">
+
+    <div class="alert danger">
+      <span class="alert-icon">❄️</span>
+      <div><strong>Viktigt – Vinterdränering!</strong> Det är mycket viktigt att dränera poolvärmepumpen på vatten inför vinterförvaring. Frostsprängda titanvärmeväxlare täcks <em>inte</em> av garantin!</div>
+    </div>
+
+    <div class="card">
+      <h2>❄️ Vinterdränering</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Stäng av poolvärmepumpen</div>
+            <div class="step-desc">Stäng av strömmen och stoppa cirkulationspumpen.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Lossa röranslutningarna</div>
+            <div class="step-desc">Skruva av rören till in- och utlopp. Kontrollera att allt vatten runnit ut.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Rengör värmeväxlaren</div>
+            <div class="step-desc">Spola igenom titanvärmeväxlaren med en trädgårdsslang och töm ordentligt. Ta bort eventuella avlagringar.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Montera vintertäcket</div>
+            <div class="step-desc">Dra över det medföljande vintertäcket för att skydda enheten under vinterförvaring.</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert warning" style="margin-top:16px;">
+        <span class="alert-icon">⚠️</span>
+        <div>Vid minsta osäkerhet inför vinterdräneringen – kontakta din återförsäljare!</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔧 Löpande underhåll</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Regelbundet</h3>
+          <ul style="padding-left:18px;font-size:13px;line-height:2.2;">
+            <li>Rensa poolfiltret regelbundet</li>
+            <li>Kontrollera avrinning och ventilation runt enheten</li>
+            <li>Rengör insugsgallret från löv och smuts</li>
+            <li>Kontrollera att ingen is byggs upp under enheten vid kall väderlek</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Förångarbatteri</h3>
+          <ul style="padding-left:18px;font-size:13px;line-height:2.2;">
+            <li>Rengör med pensel, mjuk borste eller dammsugare</li>
+            <li>Använd <strong>inte</strong> högtrycksspruta</li>
+            <li>Rent förångarbatteri ger maximal verkningsgrad</li>
+          </ul>
+          <h3 style="margin-top:16px;">Kåpa/kabinett</h3>
+          <ul style="padding-left:18px;font-size:13px;line-height:2.2;">
+            <li>Rengör med en fuktad trasa</li>
+            <li>Vaxbehandla minst en gång per år</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📋 Garanti</h2>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">Poolvärmepumpen ska transporteras, förvaras, installeras och användas i enlighet med manualens föreskrifter. Reparation ska utföras av kvalificerad installatör. Originaldelar måste användas.</p>
+      <div class="alert danger" style="margin-top:12px;">
+        <span class="alert-icon">⛔</span>
+        <div>Frostskador p.g.a. bristande underhåll eller handhavandefel, samt felaktig installation, ogiltigförklarar garantin. Se fullständiga villkor på <strong>www.gullbergjansson.se</strong>.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: TEKNISKA DATA -->
+  <div class="tab" id="tab-teknisk">
+
+    <div class="card">
+      <h2>📊 Modellöversikt</h2>
+      <div style="overflow-x:auto;">
+        <table class="model-table">
+          <tr>
+            <th>Egenskap</th>
+            <th>P10</th>
+            <th>P15</th>
+            <th>P20</th>
+            <th>P30</th>
+          </tr>
+          <tr>
+            <td><strong>Uppvärmningskapacitet</strong></td>
+            <td>3,0 kW</td><td>4,2 kW</td><td>6,6 kW</td><td>8,3 kW</td>
+          </tr>
+          <tr>
+            <td><strong>Rekommenderad poolvolym</strong></td>
+            <td>5–15 m³</td><td>10–35 m³</td><td>30–45 m³</td><td>40–60 m³</td>
+          </tr>
+          <tr>
+            <td><strong>Verkningsgrad (COP)</strong></td>
+            <td>4,1</td><td>4,3</td><td>4,5</td><td>4,3</td>
+          </tr>
+          <tr>
+            <td><strong>Driftspänning</strong></td>
+            <td colspan="4" style="text-align:center;">230 V ~ 50 Hz, 1-fas</td>
+          </tr>
+          <tr>
+            <td><strong>Driftström</strong></td>
+            <td>3,3 A</td><td>4,2 A</td><td>6,4 A</td><td>9,0 A</td>
+          </tr>
+          <tr>
+            <td><strong>Säkring (C-karaktär)</strong></td>
+            <td>10 A</td><td>16 A</td><td>16 A</td><td>16 A</td>
+          </tr>
+          <tr>
+            <td><strong>Ljudnivå (vid 1 m)</strong></td>
+            <td>49 dB(A)</td><td>51 dB(A)</td><td>53 dB(A)</td><td>54 dB(A)</td>
+          </tr>
+          <tr>
+            <td><strong>Köldmedium</strong></td>
+            <td colspan="4" style="text-align:center;">R32 (miljövänligt)</td>
+          </tr>
+          <tr>
+            <td><strong>Köldmediemängd</strong></td>
+            <td>0,27 kg</td><td>0,40 kg</td><td>0,53 kg</td><td>0,58 kg</td>
+          </tr>
+          <tr>
+            <td><strong>Vattenanslutning</strong></td>
+            <td colspan="4" style="text-align:center;">50 mm (unionskopplingar medföljer)</td>
+          </tr>
+          <tr>
+            <td><strong>Värmeväxlare</strong></td>
+            <td colspan="4" style="text-align:center;">Titan (tål klor- och saltvatten)</td>
+          </tr>
+          <tr>
+            <td><strong>Vikt</strong></td>
+            <td>33 kg</td><td>37 kg</td><td>53 kg</td><td>59 kg</td>
+          </tr>
+          <tr>
+            <td><strong>Mått H×B×D (mm)</strong></td>
+            <td colspan="2" style="text-align:center;">575 × 790 × 341</td>
+            <td colspan="2" style="text-align:center;">603 × 1000 × 403</td>
+          </tr>
+        </table>
+      </div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:10px;">¹ Mätt vid utomhustemperatur 15 °C, relativ luftfuktighet 70 % och pooltemperatur 26 °C (NF 414).</p>
+    </div>
+
+    <div class="card">
+      <h2>🌡️ Tryckvärden</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Högtryckspressostat</h3>
+          <p style="font-size:13px;color:var(--text-muted);">Bryter vid: <strong>44 bar</strong><br>Sluter igen vid: 32 bar</p>
+        </div>
+        <div>
+          <h3>Lågtryckspressostat</h3>
+          <p style="font-size:13px;color:var(--text-muted);">Bryter vid: <strong>1,5 bar</strong><br>Sluter igen vid: 3,0 bar</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📞 Support</h2>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.8;">
+        <strong>Gullberg &amp; Jansson AB</strong><br>
+        Hortensiagatan 7, SE-256 68 Helsingborg<br>
+        Tel: +46 (0)42 311 15 00<br>
+        E-post: info@gullbergjansson.se<br>
+        Webb: www.gullbergjansson.se
+      </p>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Gullberg &amp; Jansson Poolvärmepump P-serien &middot; rev. 2019.1 &middot; <a href="index.html" style="color:var(--text-muted);">Tillbaka till startsidan</a>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Display simulator
+  let isOn = false;
+  let setTemp = 27.0;
+  let currentTemp = 21.5;
+  let showSet = false;
+  let showOut = false;
+  let setTimer = null;
+  let upHoldTimer = null;
+
+  function updateDisplay() {
+    const disp = document.getElementById('disp');
+    const status = document.getElementById('disp-status');
+    if (!isOn) {
+      disp.textContent = 'OFF';
+      status.textContent = 'Poolvärmepumpen är avstängd';
+    } else if (showOut) {
+      disp.textContent = '24.3';
+      status.textContent = 'Utgående vattentemperatur (visas i 10 sek)';
+    } else if (showSet) {
+      disp.textContent = setTemp.toFixed(1);
+      status.textContent = 'Önskad temperatur – justera med pilarna, sparas om 5 sek';
+    } else {
+      disp.textContent = currentTemp.toFixed(1);
+      status.textContent = 'Inkommande vattentemperatur';
+    }
+  }
+
+  function displayOnOff() {
+    isOn = !isOn;
+    showSet = false;
+    showOut = false;
+    updateDisplay();
+  }
+
+  function displayUp() {
+    if (!isOn) return;
+    if (showOut) return;
+    showSet = true;
+    showOut = false;
+    setTemp = Math.min(40, setTemp + 0.1);
+    clearTimeout(setTimer);
+    setTimer = setTimeout(() => { showSet = false; updateDisplay(); }, 5000);
+    updateDisplay();
+  }
+
+  function displayDown() {
+    if (!isOn) return;
+    showSet = true;
+    showOut = false;
+    setTemp = Math.max(15, setTemp - 0.1);
+    clearTimeout(setTimer);
+    setTimer = setTimeout(() => { showSet = false; updateDisplay(); }, 5000);
+    updateDisplay();
+  }
+
+  // Hold up button for 2 sec → show outlet temp
+  const btnUp = document.getElementById('btn-up');
+  btnUp.addEventListener('mousedown', () => {
+    upHoldTimer = setTimeout(() => {
+      if (!isOn) return;
+      showSet = false;
+      showOut = true;
+      updateDisplay();
+      setTimeout(() => { showOut = false; updateDisplay(); }, 10000);
+    }, 2000);
+  });
+  btnUp.addEventListener('mouseup', () => clearTimeout(upHoldTimer));
+  btnUp.addEventListener('mouseleave', () => clearTimeout(upHoldTimer));
+
+  updateDisplay();
+</script>
+
+</body>
+</html>
