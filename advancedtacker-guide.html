@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bosch AdvancedTacker 18V-25 – Interaktiv Guide</title>
+<style>
+  :root {
+    --bosch-blue: #003366;
+    --bosch-blue-mid: #005a9e;
+    --bosch-blue-light: #d6e8f7;
+    --bosch-red: #cc0000;
+    --accent: #0077cc;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --border: #dde3ea;
+    --text: #1a2533;
+    --text-muted: #5a6a7a;
+    --green: #1a7f37;
+    --green-light: #d4edda;
+    --orange: #c06000;
+    --orange-light: #fef3e2;
+    --red: #b00020;
+    --red-light: #fde8e8;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,51,102,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: var(--bosch-blue);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 16px; }
+
+  .logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .model-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+  }
+
+  nav {
+    background: var(--bosch-blue-mid);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  nav button {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.75);
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.15s;
+  }
+  nav button:hover { color: white; background: rgba(255,255,255,0.08); }
+  nav button.active { color: white; border-bottom-color: #5bc8f5; }
+
+  main {
+    max-width: 960px;
+    margin: 32px auto;
+    padding: 0 20px;
+    width: 100%;
+    flex: 1;
+  }
+
+  .tab { display: none; }
+  .tab.active { display: block; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bosch-blue);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bosch-blue-mid);
+    margin: 18px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .card h3:first-child { margin-top: 0; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 620px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* Alerts */
+  .alert {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    border: 1px solid;
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+  .alert.danger  { background: var(--red-light); border-color: #f0a0a0; color: #5a0010; }
+  .alert.warning { background: var(--orange-light); border-color: #f0c070; color: #5a3000; }
+  .alert.info    { background: var(--bosch-blue-light); border-color: #a0c8e8; color: #002855; }
+  .alert.success { background: var(--green-light); border-color: #90d0a0; color: #0a3a18; }
+
+  /* Steps */
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 13px 15px;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .step-num {
+    min-width: 28px;
+    height: 28px;
+    background: var(--bosch-blue-mid);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .step-title { font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+  .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    background: var(--bosch-blue);
+    color: white;
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  th:first-child { border-radius: 6px 0 0 0; }
+  th:last-child { border-radius: 0 6px 0 0; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg); }
+
+  .mono { font-family: monospace; font-weight: 700; }
+
+  /* Parts list */
+  .parts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 8px;
+  }
+
+  .part-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+  }
+
+  .part-num {
+    min-width: 28px;
+    height: 28px;
+    background: var(--bosch-blue);
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .part-name { font-weight: 600; line-height: 1.3; }
+  .part-optional { font-size: 10px; color: var(--orange); font-weight: 700; display: block; }
+
+  /* Fastener selector */
+  .fastener-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .fastener-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: var(--card);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+  }
+  .fastener-btn.active {
+    background: var(--bosch-blue-mid);
+    color: white;
+    border-color: var(--bosch-blue-mid);
+  }
+
+  .fastener-info { display: none; }
+  .fastener-info.active { display: block; }
+
+  /* Slider demo */
+  .slider-demo {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 380px;
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .slider-label { color: #aaa; font-size: 12px; width: 60px; }
+
+  input[type=range] {
+    flex: 1;
+    accent-color: #5bc8f5;
+    cursor: pointer;
+  }
+
+  .slider-value {
+    color: #5bc8f5;
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 30px;
+    text-align: right;
+  }
+
+  .force-bar {
+    height: 12px;
+    background: #2a2a3e;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .force-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1a7f37, #f0c000, #cc0000);
+    border-radius: 6px;
+    transition: width 0.2s;
+  }
+
+  .force-tip {
+    color: #aaa;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* Safety list */
+  .safety-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .safety-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--red-light);
+    border: 1px solid #f0b0b0;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4a0010;
+  }
+
+  .safety-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .tag-blue { background: var(--bosch-blue-light); color: var(--bosch-blue); }
+  .tag-green { background: var(--green-light); color: var(--green); }
+  .tag-orange { background: var(--orange-light); color: var(--orange); }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="logo">BOSCH</a>
+    <div>
+      <div style="font-size:15px;font-weight:700;">AdvancedTacker 18V-25</div>
+      <div style="font-size:13px;opacity:.8;">Trådlös häftpistol – Interaktiv guide</div>
+    </div>
+  </div>
+  <span class="model-badge">Art. 3 603 BA7 1..</span>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('start',this)">Kom igång</button>
+  <button onclick="showTab('delar',this)">Delar</button>
+  <button onclick="showTab('haeftklamrar',this)">Häftklamrar &amp; spik</button>
+  <button onclick="showTab('drift',this)">Drift</button>
+  <button onclick="showTab('sakerhet',this)">Säkerhet</button>
+  <button onclick="showTab('teknisk',this)">Tekniska data</button>
+</nav>
+
+<main>
+
+  <!-- TAB: KOM IGÅNG -->
+  <div class="tab active" id="tab-start">
+
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Anta alltid att verktyget innehåller häftklamrar.</strong> Rikta aldrig verktyget mot dig själv eller andra. Avfyra endast när häftklacken är hårt tryckt mot arbetsytan.</div>
+    </div>
+
+    <div class="card">
+      <h2>🔋 Sätta i batteri</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Välj rätt batteri</div>
+            <div class="step-desc">Använd ett <strong>Bosch PBA 18V</strong>-batteri. Ladda med AL 18...-laddare (ej AL 1814 CV, AL 1820 CV eller AL 1860 CV).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Ladda batteriet</div>
+            <div class="step-desc">Ladda i temperaturen 0–35 °C. Kontrollera laddningsstatus via indikatorknappen <span class="mono">(11)</span> på batteriet.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Sätt i batteriet</div>
+            <div class="step-desc">Skjut in batteriet <span class="mono">(10)</span> i handtaget tills det klickar fast. Arbetsljuset <span class="mono">(4)</span> lyser upp arbetsytan.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Ta ut batteriet</div>
+            <div class="step-desc">Tryck in frigöringsknappen <span class="mono">(9)</span> och dra ut batteriet. Ta <strong>alltid</strong> ut batteriet innan underhåll och innan magasinet fylls på.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📦 Fylla på magasinet</h2>
+      <div class="alert danger" style="margin-bottom:16px;">
+        <span class="alert-icon">⛔</span>
+        <div>Ta ut batteriet <strong>innan</strong> magasinet fylls på.</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Lägg verktyget plant</div>
+            <div class="step-desc">Placera verktyget på ett plant underlag med häftklacken uppåt.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Öppna magasinet</div>
+            <div class="step-desc">Tryck in magasinupplåsningen <span class="mono">(13)</span> och dra magasinet <span class="mono">(12)</span> bakåt.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Lägg i häftklamrar eller spik</div>
+            <div class="step-desc">Häftklamrar och spik läggs in i olika positioner – se bilderna i manualen (A2–A3). Använd <strong>endast original Bosch-tillbehör</strong> (TK 40 eller SK 50).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Stäng magasinet</div>
+            <div class="step-desc">Skjut magasinet framåt tills det klickar. Använd inte våld. Kontrollera fyllningsnivån via påfyllningsindikeringen <span class="mono">(23)</span>.</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert info" style="margin-top:16px;">
+        <span class="alert-icon">💡</span>
+        <div>Glasfönstret på påfyllningsindikeringen <span class="mono">(23)</span> visar hur många häftklamrar/spikar som är kvar i magasinet. Magasinet rymmer ca <strong>100</strong> häftelement.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔫 Häfta – grundläggande</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Avtryckarspärren som är kopplad till den rörliga häftklacken <span class="mono">(1)</span> förhindrar oavsiktlig avfyrning om avtryckaren <span class="mono">(5)</span> av misstag trycks in.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Tryck häftklacken mot materialet</div>
+            <div class="step-desc">Pressa häftklacken <span class="mono">(1)</span> stadigt mot arbetsytan tills den är helt intryckt. Var försiktig mot mjuka material som gran – för hårt tryck kan skada ytan.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Tryck in avtryckaren</div>
+            <div class="step-desc">Håll trycket mot ytan och tryck in avtryckaren <span class="mono">(5)</span>. Häftklammern avfyras.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Släpp och flytta</div>
+            <div class="step-desc">Släpp avtryckaren och lyft bort verktyget från ytan. Flytta till nästa position.</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert success" style="margin-top:16px;">
+        <span class="alert-icon">✅</span>
+        <div><strong>Tips:</strong> Testa alltid slagstyrkainställningen på ett skrotmaterial innan du börjar. Minska alltid slagstyrkan efter avslutat arbete för att avlasta fjädern.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: DELAR -->
+  <div class="tab" id="tab-delar">
+    <div class="card">
+      <h2>🔩 Komponenter (23 delar)</h2>
+      <div class="parts-grid">
+        <div class="part-item"><div class="part-num">1</div><div><div class="part-name">Häftklack med skydd</div></div></div>
+        <div class="part-item"><div class="part-num">2</div><div><div class="part-name">Kåpa för kanal</div></div></div>
+        <div class="part-item"><div class="part-num">3</div><div><div class="part-name">Skruvar för kanalen</div></div></div>
+        <div class="part-item"><div class="part-num">4</div><div><div class="part-name">Arbetsljus</div></div></div>
+        <div class="part-item"><div class="part-num">5</div><div><div class="part-name">Avtryckare</div></div></div>
+        <div class="part-item"><div class="part-num">6</div><div><div class="part-name">Markering för slagtalsinställning</div></div></div>
+        <div class="part-item"><div class="part-num">7</div><div><div class="part-name">Slagtalsreglage</div></div></div>
+        <div class="part-item"><div class="part-num">8</div><div><div class="part-name">Handtag (isolerad greppyta)</div></div></div>
+        <div class="part-item"><div class="part-num">9</div><div><div class="part-name">Batteriets frigöringsknapp</div></div></div>
+        <div class="part-item"><div class="part-num">10</div><div><div class="part-name">Batteri</div></div></div>
+        <div class="part-item"><div class="part-num">11</div><div><div class="part-name">Laddningsstatusindikering</div></div></div>
+        <div class="part-item"><div class="part-num">12</div><div><div class="part-name">Magasin</div></div></div>
+        <div class="part-item"><div class="part-num">13</div><div><div class="part-name">Magasinupplåsning</div></div></div>
+        <div class="part-item"><div class="part-num">14</div><div><div class="part-name">Urtag för distanshållare</div></div></div>
+        <div class="part-item"><div class="part-num">15</div><div><div class="part-name">Utmatning klammer/spik</div></div></div>
+        <div class="part-item"><div class="part-num">16</div><div><div class="part-name">Avståndshållare<span class="part-optional">Tillbehör</span></div></div></div>
+        <div class="part-item"><div class="part-num">17</div><div><div class="part-name">Skydd för förvaring</div></div></div>
+        <div class="part-item"><div class="part-num">18</div><div><div class="part-name">Skyddskåpa</div></div></div>
+        <div class="part-item"><div class="part-num">19</div><div><div class="part-name">Kabelskydd<span class="part-optional">Tillbehör</span></div></div></div>
+        <div class="part-item"><div class="part-num">20</div><div><div class="part-name">Klammerband<span class="part-optional">Tillbehör</span></div></div></div>
+        <div class="part-item"><div class="part-num">21</div><div><div class="part-name">Bandad spik<span class="part-optional">Tillbehör</span></div></div></div>
+        <div class="part-item"><div class="part-num">22</div><div><div class="part-name">Insexnyckel</div></div></div>
+        <div class="part-item"><div class="part-num">23</div><div><div class="part-name">Påfyllningsindikering</div></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎯 Ändamålsenlig användning</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Verktyget är avsett för:</p>
+      <ul style="padding-left:18px;font-size:13px;line-height:2.2;">
+        <li>Fästa tyg, läder, kartong, folier och isoleringsmaterial mot mjuka ytor (trä, trälika material)</li>
+        <li>Fästa trä mot trä – t.ex. trälådor</li>
+        <li>Montera vägg- och takpaneler</li>
+      </ul>
+      <div class="alert warning" style="margin-top:16px;">
+        <span class="alert-icon">⚠️</span>
+        <div>Använd <strong>inte</strong> verktyget för elledningar – det skadar isoleringen och skapar risk för elstöt och brand.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: HÄFTKLAMRAR & SPIK -->
+  <div class="tab" id="tab-haeftklamrar">
+
+    <div class="card">
+      <h2>📎 Välj typ av fästelement</h2>
+      <div class="fastener-selector">
+        <button class="fastener-btn active" onclick="showFastener('staples',this)">🔷 Häftklamrar (TK 40)</button>
+        <button class="fastener-btn" onclick="showFastener('nails',this)">🔩 Spik (SK 50)</button>
+      </div>
+
+      <div class="fastener-info active" id="fastener-staples">
+        <div class="alert info">
+          <span class="alert-icon">ℹ️</span>
+          <div>Häftklamrar med smal rygg. Bosch-typ <strong>TK 40</strong> – ryggbredd 5,8 mm.</div>
+        </div>
+        <table>
+          <tr><th>Märke</th><th>Typ</th><th>Tillgängliga längder</th></tr>
+          <tr><td><strong>Bosch</strong> (rekommenderas)</td><td class="mono">TK 40</td><td>15 mm, 20 mm, 25 mm</td></tr>
+          <tr><td>Rapid (alternativ)</td><td class="mono">606</td><td>12 mm, 15 mm, 18 mm, 23 mm, 25 mm</td></tr>
+        </table>
+        <div class="alert success" style="margin-top:14px;">
+          <span class="alert-icon">💡</span>
+          <div>Kortare häftklamrar (15 mm) passar för tunna material som tyg och folier. Längre (25 mm) för tjockare trä och isolering.</div>
+        </div>
+      </div>
+
+      <div class="fastener-info" id="fastener-nails">
+        <div class="alert info">
+          <span class="alert-icon">ℹ️</span>
+          <div>Spik med platt huvud. Bosch-typ <strong>SK 50</strong> – huvudbredd 2,0 mm.</div>
+        </div>
+        <table>
+          <tr><th>Märke</th><th>Typ</th><th>Tillgängliga längder</th></tr>
+          <tr><td><strong>Bosch</strong> (rekommenderas)</td><td class="mono">SK 50</td><td>16 mm, 19 mm, 25 mm, 30 mm</td></tr>
+          <tr><td>Rapid (alternativ)</td><td class="mono">8</td><td>15 mm, 20 mm, 25 mm</td></tr>
+        </table>
+        <div class="alert success" style="margin-top:14px;">
+          <span class="alert-icon">💡</span>
+          <div>Spik ger starkare fästning och passar för trä-mot-trä-arbeten, som att montera lister och skivor.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert warning">
+      <span class="alert-icon">⚠️</span>
+      <div>Använd <strong>endast original Bosch-tillbehör</strong>. Konkurrenters fästelement har annan stålkvalitet och dimensioner, vilket kan orsaka stopp och skador på verktyget.</div>
+    </div>
+
+  </div>
+
+  <!-- TAB: DRIFT -->
+  <div class="tab" id="tab-drift">
+
+    <div class="card">
+      <h2>⚡ Slagstyrka – inställning</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Använd slagtalsreglaget <span class="mono">(7)</span> för att justera slagstyrkan. Testa alltid på skrotmaterial först – rätt inställning beror på häftklammerlängd och materialets hårdhet.</p>
+
+      <div class="slider-demo">
+        <div class="slider-row">
+          <span class="slider-label" style="color:#aaa;font-size:12px;">Slagstyrka</span>
+          <input type="range" min="1" max="10" value="5" id="force-slider" oninput="updateForce()">
+          <span class="slider-value" id="force-val">5</span>
+        </div>
+        <div class="force-bar">
+          <div class="force-fill" id="force-fill" style="width:50%"></div>
+        </div>
+        <div class="force-tip" id="force-tip">Mellanslagstyrka – passa för de flesta material</div>
+      </div>
+
+      <div class="grid-2" style="margin-top:16px;">
+        <div>
+          <h3>Låg slagstyrka passar för</h3>
+          <ul style="padding-left:18px;font-size:13px;line-height:2;">
+            <li>Mjuka material (tyg, folie, kartong)</li>
+            <li>Tunna häftklamrar (15 mm)</li>
+            <li>Känsliga ytor (gran, furu)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Hög slagstyrka passar för</h3>
+          <ul style="padding-left:18px;font-size:13px;line-height:2;">
+            <li>Hårda material (hårt trä, skiva)</li>
+            <li>Långa häftklamrar/spik (25–30 mm)</li>
+            <li>Tjockt isoleringsmaterial</li>
+          </ul>
+        </div>
+      </div>
+      <div class="alert info" style="margin-top:14px;">
+        <span class="alert-icon">💡</span>
+        <div><strong>Minska alltid slagstyrkan efter avslutat arbete</strong> genom att vrida reglaget <span class="mono">(7)</span> till lägsta läge. Det avlastar fjädern och förlänger verktygets livslängd.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📐 Avståndshållare (tillbehör)</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Med avståndshållaren <span class="mono">(16)</span> kan du häfta på ett jämnt avstånd från materialets kant – perfekt för golv- och väggpaneler.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Montera avståndshållaren</div>
+            <div class="step-desc">Snäpp fast avståndshållarens flikar i urtagen <span class="mono">(14)</span>. Varje position motsvarar ett specifikt kantavstånd (1–5,5 cm).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Rikta mot kanten</div>
+            <div class="step-desc">Håll avståndshållarens framkant mot materialets kant. Tryck ned verktyget tills häftklacken är helt intryckt.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Häfta och flytta</div>
+            <div class="step-desc">Tryck in avtryckaren, släpp och förflytta längs kanten för jämna intervaller.</div>
+          </div>
+        </div>
+      </div>
+      <div class="alert warning" style="margin-top:14px;">
+        <span class="alert-icon">⚠️</span>
+        <div>Ta bort avståndshållaren <span class="mono">(16)</span> innan magasinet <span class="mono">(12)</span> fylls på.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔧 Åtgärda stopp i kanalen</h2>
+      <div class="alert danger" style="margin-bottom:16px;">
+        <span class="alert-icon">⛔</span>
+        <div>Ta alltid ut batteriet <strong>innan</strong> du åtgärdar ett stopp. Inre fjädertrycket kan orsaka att häftklamrar lossnar kraftigt vid öppning.</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Ta ut batteriet</div>
+            <div class="step-desc">Tryck frigöringsknappen <span class="mono">(9)</span> och dra ut batteriet <span class="mono">(10)</span>.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Öppna magasinet</div>
+            <div class="step-desc">Tryck in magasinupplåsningen <span class="mono">(13)</span> och dra magasinet <span class="mono">(12)</span> bakåt.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Ta bort det fastnade fästelement</div>
+            <div class="step-desc">Plocka ut det fastnade fästelement med en tång om nödvändigt.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Vid envisa stopp – öppna kanalkåpan</div>
+            <div class="step-desc">Skruva upp kanalskruvarna <span class="mono">(3)</span> med insexnyckel <span class="mono">(22)</span> och lyft av kåpan <span class="mono">(2)</span> för att nå kanalens inre.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🛡️ Byte av skyddskåpa</h2>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">Det är <strong>förbjudet</strong> att använda verktyget utan skyddskåpa <span class="mono">(18)</span>. Du kan byta till kabelskyddet <span class="mono">(19)</span> vid arbete med kablar.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Stäng av och ta ut batteriet</div>
+            <div class="step-desc">Släpp avtryckaren <span class="mono">(5)</span> och ta ut batteriet <span class="mono">(10)</span>.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Ta loss skyddskåpan</div>
+            <div class="step-desc">Dra loss standardskyddskåpan <span class="mono">(18)</span> från häftklacken <span class="mono">(1)</span>.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Montera alternativt skydd</div>
+            <div class="step-desc">Sätt på kabelskyddet <span class="mono">(19)</span> eller sätt tillbaka standardskyddet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: SÄKERHET -->
+  <div class="tab" id="tab-sakerhet">
+
+    <div class="card">
+      <h2>⛔ Säkerhetsanvisningar</h2>
+      <div class="safety-list">
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Anta alltid att verktyget innehåller häftklamrar – behandla det alltid som laddat.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Rikta aldrig verktyget mot dig själv eller andra i närheten – oavsiktlig avfyrning orsakar allvarliga skador.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Avfyra endast när häftklacken är hårt pressad mot arbetsytan – annars kan häftklamrar studsa och träffa dig.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Ta ut batteriet om en häftklammer fastnar i verktyget – förhindrar oavsiktlig aktivering vid rensning.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Använd inte verktyget för elledningar – det skadar isoleringen och skapar risk för elstöt och brand.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Håll fingrarna borta från avtryckaren när du förflyttar dig mellan arbetspositioner.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Håll kroppen borta från avfyrningsriktningen – häftklamrar kan gå igenom materialet och träffa objekt bakom det.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Använd ledningsdetektorer för att hitta dolda el-, gas- och vattenledningar innan du häftar i väggar/tak.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Arbeta aldrig utan skyddskåpan <span class="mono">(18)</span> monterad.</div></div>
+        <div class="safety-item"><span class="safety-icon">⛔</span><div>Ta aldrig isär eller modifiera batteriet – risk för kortslutning och brand.</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔊 Ljud – använd hörselskydd</h2>
+      <div class="alert danger">
+        <span class="alert-icon">🎧</span>
+        <div><strong>Bär hörselskydd!</strong> Bullertrycknivå: <strong>91 dB(A)</strong> · Bullernivå: <strong>102 dB(A)</strong> · Mätt enligt EN 60745-2-16.</div>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);">Vibration: ah &lt; 2,5 m/s² (K = 1,5 m/s²). Faktisk exponering kan variera beroende på användning och underhållsstatus.</p>
+    </div>
+
+    <div class="card">
+      <h2>🔧 Underhåll</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">!</div>
+          <div class="step-body">
+            <div class="step-title">Ta alltid ut batteriet</div>
+            <div class="step-desc">Ta ut batteriet <span class="mono">(10)</span> innan alla underhållsarbeten på verktyget.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">🧹</div>
+          <div class="step-body">
+            <div class="step-title">Håll verktyget rent</div>
+            <div class="step-desc">Rengör verktyget och ventilationsöppningarna regelbundet för korrekt och säker funktion. Använd inte vatten – torr rengöring.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">📦</div>
+          <div class="step-body">
+            <div class="step-title">Förvaring</div>
+            <div class="step-desc">Förvara i temperaturen −20 till +50 °C. Montera skydd för förvaring <span class="mono">(17)</span> för att skydda häftklacken vid transport och förvaring.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: TEKNISKA DATA -->
+  <div class="tab" id="tab-teknisk">
+
+    <div class="card">
+      <h2>📊 Specifikationer</h2>
+      <div style="overflow-x:auto;">
+        <table>
+          <tr><th>Egenskap</th><th>Värde</th></tr>
+          <tr><td>Modell</td><td><strong>AdvancedTacker 18V-25</strong></td></tr>
+          <tr><td>Artikelnummer</td><td class="mono">3 603 BA7 1..</td></tr>
+          <tr><td>Slagfrekvens</td><td>30 slag/min</td></tr>
+          <tr><td>Magasinkapacitet</td><td>ca 100 fästelement</td></tr>
+          <tr><td>Vikt (utan batteri)</td><td>2,1 kg</td></tr>
+          <tr><td>Bullertrycknivå</td><td>91 dB(A) · K = 3 dB</td></tr>
+          <tr><td>Bullernivå</td><td>102 dB(A) · K = 3 dB</td></tr>
+          <tr><td>Vibration ah</td><td>&lt; 2,5 m/s² · K = 1,5 m/s²</td></tr>
+          <tr><td>Drifttemperatur</td><td>−20 ... +50 °C</td></tr>
+          <tr><td>Laddningstemperatur</td><td>0 ... +35 °C</td></tr>
+          <tr><td>Batteri</td><td>Bosch PBA 18V</td></tr>
+          <tr><td>Laddare</td><td>AL 18... (ej AL 1814/1820/1860 CV)</td></tr>
+          <tr><td>Mätstandard</td><td>EN 60745-2-16</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📎 Kompatibla fästelement</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Häftklamrar – Typ A (TK 40)</h3>
+          <table>
+            <tr><th>Märke</th><th>Typ</th><th>Längder</th></tr>
+            <tr><td>Bosch</td><td class="mono">TK 40</td><td>15, 20, 25 mm</td></tr>
+            <tr><td>Rapid</td><td class="mono">606</td><td>12–25 mm</td></tr>
+          </table>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:6px;">Ryggbredd: 5,8 mm</p>
+        </div>
+        <div>
+          <h3>Spik – Typ B (SK 50)</h3>
+          <table>
+            <tr><th>Märke</th><th>Typ</th><th>Längder</th></tr>
+            <tr><td>Bosch</td><td class="mono">SK 50</td><td>16, 19, 25, 30 mm</td></tr>
+            <tr><td>Rapid</td><td class="mono">8</td><td>15–25 mm</td></tr>
+          </table>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:6px;">Huvudbredd: 2,0 mm</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Bosch AdvancedTacker 18V-25 &middot; Interaktiv guide &middot; <a href="index.html" style="color:var(--text-muted);">Tillbaka till startsidan</a>
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function showFastener(type, btn) {
+    document.querySelectorAll('.fastener-info').forEach(f => f.classList.remove('active'));
+    document.querySelectorAll('.fastener-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('fastener-' + type).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function updateForce() {
+    const val = parseInt(document.getElementById('force-slider').value);
+    document.getElementById('force-val').textContent = val;
+    document.getElementById('force-fill').style.width = (val * 10) + '%';
+    const tips = {
+      1: 'Mycket låg – för ytterst känsliga material',
+      2: 'Mycket låg – för tyg och tunna folier',
+      3: 'Låg – för mjuka material och korta klamrar',
+      4: 'Låg-medium – för kartong och läder',
+      5: 'Mellanslagstyrka – passar de flesta material',
+      6: 'Medium – för normal träfästning',
+      7: 'Medium-hög – för hårdare trä',
+      8: 'Hög – för hårt trä och långa klamrar',
+      9: 'Mycket hög – för tjockt isoleringsmaterial',
+      10: 'Max – för hårdaste material och längsta spik'
+    };
+    document.getElementById('force-tip').textContent = tips[val];
+  }
+</script>
+
+</body>
+</html>
