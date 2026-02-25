@@ -11,3 +11,4 @@ Interaktiva guider för hushållsapparater, byggda som enkla HTML-sidor.
 | Diskmaskin | Bosch SMU50M36SK43 | [diskmaskin-guide.html](diskmaskin-guide.html) |
 | Poolvärmepump | Gullberg & Jansson P10/P15/P20/P30 | [poolvarmepump-guide.html](poolvarmepump-guide.html) |
 | Häftpistol | Bosch AdvancedTacker 18V-25 | [advancedtacker-guide.html](advancedtacker-guide.html) |
+| Hårklippare | BaByliss E996E | [babylissmen-guide.html](babylissmen-guide.html) |
