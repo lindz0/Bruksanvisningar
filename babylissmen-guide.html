@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BaByliss E996E – Interaktiv Bruksanvisning</title>
+<style>
+  :root {
+    --gold: #b8860b;
+    --gold-mid: #c9960c;
+    --gold-light: #fdf6e3;
+    --gold-dark: #8b6508;
+    --black: #1a1a1a;
+    --accent: #c9960c;
+    --bg: #f5f5f5;
+    --card: #ffffff;
+    --border: #e0d8c8;
+    --text: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --green: #1a7f37;
+    --green-light: #d4edda;
+    --orange: #c06000;
+    --orange-light: #fef3e2;
+    --red: #b00020;
+    --red-light: #fde8e8;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: var(--black);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 16px; }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--gold-mid);
+    text-decoration: none;
+  }
+
+  .model-badge {
+    background: rgba(200,150,12,0.2);
+    border: 1px solid rgba(200,150,12,0.5);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold-mid);
+  }
+
+  nav {
+    background: #2a2a2a;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+
+  nav button {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  nav button:hover { color: white; }
+  nav button.active {
+    color: var(--gold-mid);
+    border-bottom-color: var(--gold-mid);
+  }
+
+  main {
+    flex: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    width: 100%;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--black);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gold-mid);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin: 20px 0 10px;
+  }
+
+  p { line-height: 1.6; margin-bottom: 12px; color: var(--text); }
+
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 14px;
+  }
+  li { line-height: 1.7; margin-bottom: 4px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tip {
+    background: var(--green-light);
+    border-left: 4px solid var(--green);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  .tip strong { color: var(--green); }
+
+  .warning {
+    background: var(--orange-light);
+    border-left: 4px solid var(--orange);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  .warning strong { color: var(--orange); }
+
+  .alert {
+    background: var(--red-light);
+    border-left: 4px solid var(--red);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  .alert strong { color: var(--red); }
+
+  .info {
+    background: var(--gold-light);
+    border-left: 4px solid var(--gold-mid);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  .info strong { color: var(--gold-dark); }
+
+  /* Comb table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+
+  th {
+    background: #2a2a2a;
+    color: var(--gold-mid);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:nth-child(even) td { background: #fafafa; }
+  tr:hover td { background: var(--gold-light); }
+
+  /* Steps */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--gold-mid);
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; line-height: 1.6; }
+
+  /* Taper table */
+  .taper-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .taper-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+
+  .taper-cell .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .taper-cell .value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--gold-dark);
+    margin: 4px 0 2px;
+  }
+
+  .taper-cell .mm {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* LED indicator */
+  .led-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .led {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+  }
+
+  .led.on { background: #0080ff; border-color: #0055cc; }
+  .led.blink { background: #80c0ff; border-color: #0055cc; animation: blink 1s infinite; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .led-label { font-size: 13px; color: var(--text-muted); }
+
+  footer {
+    text-align: center;
+    padding: 20px 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a class="logo" href="index.html">BaByliss</a>
+    <span class="model-badge">E996E</span>
+  </div>
+</header>
+
+<nav id="mainNav">
+  <button class="active" onclick="showSection('start', this)">Kom igång</button>
+  <button onclick="showSection('kammar', this)">Distanskammar</button>
+  <button onclick="showSection('klippning', this)">Klippning</button>
+  <button onclick="showSection('trimning', this)">Trimning</button>
+  <button onclick="showSection('taper', this)">Taperkontroll</button>
+  <button onclick="showSection('laddning', this)">Laddning</button>
+  <button onclick="showSection('smörjning', this)">Smörjning &amp; skötsel</button>
+</nav>
+
+<main>
+
+  <!-- KOM IGÅNG -->
+  <div id="start" class="section active">
+    <h2>Kom igång</h2>
+
+    <div class="card">
+      <div class="card-title">✅ Före användning</div>
+      <ul>
+        <li>Inspektera alltid apparaten före användning för att säkerställa att trimmerbladen är fria från hår och smuts.</li>
+        <li>Använd apparaten på rent, torrt hår som har retts ut tills inga knutar återstår.</li>
+        <li>Ladda batteriet kontinuerligt i <strong>3 timmar</strong> före den allra första användningen.</li>
+      </ul>
+    </div>
+
+    <div class="info">
+      <strong>Obs!</strong> Placera alltid trimmern i laddningsbasen med I/O-brytaren i läget <strong>OFF</strong>.
+    </div>
+
+    <h3>I förpackningen</h3>
+    <ul>
+      <li>BaByliss E996E hårklippare</li>
+      <li>Laddningsadapter</li>
+      <li>10 distanskammar (1,5–25 mm)</li>
+      <li>Bladskydd</li>
+      <li>Smörjoljeflakon</li>
+      <li>Rengöringsborste</li>
+    </ul>
+
+    <h3>Starta trimmern</h3>
+    <p>Byt till läge <strong>I-ON</strong> för att starta – bladen börjar röra sig omgående.</p>
+    <p>Stäng av med knappen i läge <strong>O (OFF)</strong>.</p>
+
+    <div class="warning">
+      <strong>Viktigt!</strong> Använd endast den medföljande adaptern och tillbehören som medföljer apparaten.
+    </div>
+  </div>
+
+  <!-- DISTANSKAMMAR -->
+  <div id="kammar" class="section">
+    <h2>Distanskammar</h2>
+
+    <p>Trimmern levereras med <strong>10 standarddistanskammar</strong> i längderna 1,5–25 mm. Alla distanskammar är märkta.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Klipplängd</th>
+          <th>Inställning</th>
+          <th>Klipplängd</th>
+          <th>Inställning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1,5 mm (1/16")</td><td>#0.5</td><td>13 mm (1/2")</td><td>#4</td></tr>
+        <tr><td>3 mm (1/8")</td><td>#1</td><td>16 mm (5/8")</td><td>#5</td></tr>
+        <tr><td>4,8 mm (3/16")</td><td>#1.5</td><td>19 mm (3/4")</td><td>#6</td></tr>
+        <tr><td>6 mm (1/4")</td><td>#2</td><td>22 mm (7/8")</td><td>#7</td></tr>
+        <tr><td>10 mm (3/8")</td><td>#3</td><td>25 mm (1")</td><td>#8</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info">
+      <strong>Utan distanskam:</strong> Bladets klipplängd är <strong>0,8 mm</strong>.
+    </div>
+
+    <h3>Montera distanskam</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Se till att apparaten är <strong>avstängd</strong> innan du monterar distanskammen.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Placera distanskammen framför bladen och skjut ned den över bladhuvudet.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Tryck ned baksidan av distanskammen tills den <strong>klickar på plats</strong>.</div></div>
+    </div>
+
+    <h3>Ta av distanskam</h3>
+    <p>Stäng av apparaten. Distanskammen kan sköljas under rinnande vatten. Se till att den är <strong>helt torr</strong> innan den monteras eller används igen.</p>
+  </div>
+
+  <!-- KLIPPNING -->
+  <div id="klippning" class="section">
+    <h2>Klippning</h2>
+
+    <h3>Jämn längd över hela huvudet</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Anslut önskad distanskam – alla kammar är märkta.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Starta trimmern genom att växla till <strong>I-ON</strong>-läget. Bladen börjar röra sig.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Börja bak i nacken. Håll trimmern med distanskammens tänder uppåt och se till att distanskammen ligger <strong>platt mot huvudet</strong>.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content">För trimmern <strong>långsamt uppåt och utåt</strong> genom håret mot hjässan, mot hårets växtriktning. Distanskammen hjälper till att lyfta håret och bladen klipper håret i önskad längd.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content">Börja klippa på ovansidan och sidorna när du har nått önskad längd på huvudets baksida.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content">Håll trimmern på huvudets framsida med tänderna pekande mot baksidan och för trimmern mot hjässan.</div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-content">Du bör nu få en <strong>jämn längd</strong> över hela håret.</div></div>
+    </div>
+
+    <h3>Kortare sidor och baksida – längre topp</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Anslut en <strong>längre distanskam</strong> för hjässan. Trimmern levereras med 10 standarddistanskammar i längderna 1,5–25 mm.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Starta trimmern (I-ON). Börja bak i nacken med distanskammen platt mot huvudet och rör trimmern uppåt och utåt.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Klipp toppen och sidorna när du är klar med baksidan.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content">Stäng sedan av apparaten och montera en <strong>kortare distanskam</strong> för att klippa baksidan och sidorna kortare.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content">Upprepa på sidorna: håll trimmern med tänderna uppåt och distanskammen platt mot huvudet och rör trimmern uppåt och utåt.</div></div>
+    </div>
+
+    <div class="tip">
+      <strong>Tips:</strong> Trimmern ger bäst resultat på rent, torrt hår som är utredd. Kammar igenom håret innan du börjar.
+    </div>
+  </div>
+
+  <!-- TRIMNING -->
+  <div id="trimning" class="section">
+    <h2>Trimning (precisionskanter)</h2>
+
+    <p>För att trimma kanter – t.ex. nacklinjen och polisonger – ta av distanskammen.</p>
+
+    <h3>Trimma nacklinjen och polisonger</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Ta av distanskammen.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Håll bladet <strong>rakt</strong> längs polisongerna eller nacklinjen och för bladen <strong>nedåt</strong>. Det ger en skarp och jämn kant.</div></div>
+    </div>
+
+    <h3>Trimma fransen/pannan</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Håll apparaten upp och ned så att trimmerns framsida är riktad mot ditt ansikte/huvud.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Rör trimmern längs hårlinjen för att skapa en precisionskant.</div></div>
+    </div>
+
+    <div class="tip">
+      <strong>Tips:</strong> För skarpare kanter vid nacken eller polisongerna – ta alltid bort distanskammen och använd trimmern utan kam.
+    </div>
+  </div>
+
+  <!-- TAPERKONTROLL -->
+  <div id="taper" class="section">
+    <h2>Taperkontroll (bladjustering)</h2>
+
+    <p>Med taper-reglaget kan du finjustera klipplängden steglöst. Bladets grundlängd utan distanskam är <strong>0,8 mm</strong>. Öka klipplängden genom att trycka spaken nedåt.</p>
+
+    <div class="taper-grid">
+      <div class="taper-cell">
+        <div class="label">Läge 1</div>
+        <div class="value">+ 0,0</div>
+        <div class="mm">mm</div>
+      </div>
+      <div class="taper-cell">
+        <div class="label">Läge 2</div>
+        <div class="value">+ 0,2</div>
+        <div class="mm">mm</div>
+      </div>
+      <div class="taper-cell">
+        <div class="label">Läge 3</div>
+        <div class="value">+ 0,3</div>
+        <div class="mm">mm</div>
+      </div>
+      <div class="taper-cell">
+        <div class="label">Läge 4</div>
+        <div class="value">+ 0,5</div>
+        <div class="mm">mm</div>
+      </div>
+      <div class="taper-cell">
+        <div class="label">Läge 5</div>
+        <div class="value">+ 0,6</div>
+        <div class="mm">mm</div>
+      </div>
+    </div>
+
+    <div class="info">
+      <strong>Exempel:</strong> Utan distanskam i taperlägge 5 klipper bladen på 0,8 + 0,6 = <strong>1,4 mm</strong>.
+    </div>
+
+    <p>Tapern används ofta för att skapa mjuka övergångar (fade) vid nacken och sidorna – kör med ett kortare taperinställning nere och öka gradvis uppåt.</p>
+  </div>
+
+  <!-- LADDNING -->
+  <div id="laddning" class="section">
+    <h2>Laddning</h2>
+
+    <h3>Första laddning</h3>
+    <p>Ladda batteriet kontinuerligt i <strong>3 timmar</strong> före den första användningen. Maximal batterikapacitet nås efter att <strong>3 laddnings- och urladdningscykler</strong> har slutförts.</p>
+
+    <h3>Ladda apparaten</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content">Anslut laddningsadaptern till en lämplig väggkontakt.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">En <strong>blå LED-lampa</strong> rör sig kontinuerligt uppåt längs produkten för att indikera att trimmern laddas.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">När batteriet är <strong>fulladdat</strong> slutar LED-lampan att röra sig och alla 5 laddningslampor lyser med ett fast sken.</div></div>
+    </div>
+
+    <div class="info">
+      <strong>Obs!</strong> Placera alltid trimmern i basen med I/O-brytaren i läget <strong>OFF</strong>.
+    </div>
+
+    <h3>LED-indikator – laddningsstatus</h3>
+    <div class="card">
+      <div style="margin-bottom: 12px;">
+        <div class="led-row">
+          <div class="led on"></div><div class="led on"></div><div class="led on"></div><div class="led on"></div><div class="led on"></div>
+          <span class="led-label" style="margin-left:8px;">Fulladdat – alla 5 lampor lyser fast</span>
+        </div>
+        <div class="led-row">
+          <div class="led on"></div><div class="led" style="background:#e0e0e0"></div><div class="led" style="background:#e0e0e0"></div><div class="led" style="background:#e0e0e0"></div><div class="led blink"></div>
+          <span class="led-label" style="margin-left:8px;">Nedersta lampan blinkar – ca 5 min kvar</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Batteritid</h3>
+    <table>
+      <thead>
+        <tr><th>Laddning</th><th>Användningstid</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>3 timmar (full laddning)</td><td>ca 3 timmar</td></tr>
+        <tr><td>20 minuter (snabbladdning)</td><td>ca 20 minuter</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert">
+      <strong>Varning!</strong> Om alla 5 laddningslampor börjar blinka snabbt (mer än 4 blink per sekund) är det ett fel på apparaten. Sluta ladda omedelbart och dra adaptern ur väggkontakten.
+    </div>
+
+    <h3>Bibehålla batterikapaciteten</h3>
+    <p>För att bibehålla optimal kapacitet i de laddningsbara batterierna ska trimmern laddas i <strong>3 timmar</strong> med ungefär <strong>6 månaders</strong> mellanrum.</p>
+  </div>
+
+  <!-- SMÖRJNING & SKÖTSEL -->
+  <div id="smörjning" class="section">
+    <h2>Smörjning &amp; skötsel</h2>
+
+    <h3>Smörjningsanvisningar</h3>
+    <p>För optimal klipprestanda rekommenderar vi att bladen smörjs <strong>efter varje användning</strong>.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><strong>Första gången:</strong> Skruva bort locket och klipp av plasttubens ände med en sax.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content">Ta bort bladskyddet och starta apparaten.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content">Håll trimmern i <strong>45 graders vinkel</strong>. Tryck lätt på oljetuben och applicera <strong>2 droppar</strong> direkt på bladen.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content">Lämna apparaten igång i <strong>några sekunder</strong> till så att oljan sprids ordentligt längs bladen.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content">Stäng av apparaten och avlägsna överskottsolja genom att försiktigt torka med en <strong>ren duk</strong> innan du använder den i håret.</div></div>
+    </div>
+
+    <div class="warning">
+      <strong>Viktigt!</strong> Demontera aldrig bladen. Smörj bladen efter varje användning för att säkerställa optimal klippkvalitet.
+    </div>
+
+    <h3>Rengöring av distanskammar</h3>
+    <ul>
+      <li>Distanskammarna kan sköljas under rinnande vatten.</li>
+      <li>Se till att distanskammarna är <strong>helt torra</strong> innan de monteras eller används igen.</li>
+    </ul>
+
+    <h3>Allmänna råd</h3>
+    <ul>
+      <li>Rengör alltid apparaten efter varje användning med den medföljande borsten.</li>
+      <li>Förvara apparaten på en torr plats, skyddad från damm.</li>
+      <li>Håll apparaten utom räckhåll för barn.</li>
+      <li>Sänk aldrig ned apparaten i vatten eller andra vätskor.</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  BaByliss E996E &middot; Bruksanvisning &middot; <a href="index.html" style="color: var(--gold-dark);">Alla guider</a>
+</footer>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
