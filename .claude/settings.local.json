@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "Bash(python:*)",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "Bash(cd /e/Claude/Bruksanvisningar && git push -u origin master 2>&1)",
+      "Bash(cd /e/Claude/Bruksanvisningar && git add index.html && git commit -m \"$\\(cat <<'EOF'\nAdd index.html as GitHub Pages startsida\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\" && git push 2>&1)",
+      "WebFetch(domain:www2.bosch-diy.com)",
+      "Bash(python3:*)",
+      "Bash(head:*)",
+      "Bash(curl:*)",
+      "Bash(cd /e/Claude/Bruksanvisningar && git checkout -b add-images-advancedtacker 2>&1)",
+      "Bash(cd /e/Claude/Bruksanvisningar && git add advancedtacker-guide.html && git commit -m \"$\\(cat <<'EOF'\nAdd product images and diagrams to AdvancedTacker guide\n\n- Adds product photo from Bosch manual website\n- Adds 4 labeled component diagrams \\(SVG\\) with lightbox\n- Images linked directly from Bosch's public CDN\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\" 2>&1)",
+      "mcp__ide__executeCode",
+      "Bash(cd /e/Claude/Bruksanvisningar && git checkout -b add-babylissmen-guide 2>&1)",
+      "Bash(cd:*)",
+      "Bash(cd /e/Claude/Bruksanvisningar && git push -u origin add-babylissmen-guide 2>&1)",
+      "Bash(cd /e/Claude/Bruksanvisningar && git push 2>&1)",
+      "Bash(cd /e/Claude/Bruksanvisningar && gh pr merge 3 --merge --delete-branch 2>&1)"
     ]
   }
 }
